@@ -5,7 +5,7 @@ const caroLeftBtn = document.querySelector(".left-btn");
 const caroRightBtn = document.querySelector(".right-btn");
 const infoCards = Array.from(carouselWrapper.children);
 
-const cardWidth = infoCards[0].offsetWidth * 2;
+const cardWidth = infoCards[0].offsetWidth;
 
 caroRightBtn.addEventListener("click", () => {
   const currentPosition = carouselWrapper.scrollLeft;
