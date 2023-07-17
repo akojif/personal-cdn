@@ -64,43 +64,49 @@ jQuery(document).ready(function($) {
     var autoRotateInterval = 5000; // Change this value to adjust the rotation interval (in milliseconds)
     var autoRotateTimer;
   
-    // initialize the heading and sub-heading elements
+    // Initialize the heading and sub-heading elements
     $heading.text($images.eq(0).data('heading'));
     $subHeading.text($images.eq(0).data('subheading'));
-    $images.eq(0).closest('.lastSection-item').addClass('active');
   
-    // update the heading, sub-heading, and displayed image
+    // Function to update the slide data
     function updateSlideData(index) {
       var $currentImage = $images.eq(index);
       $heading.text($currentImage.data('heading'));
       $subHeading.text($currentImage.data('subheading'));
-      $images.closest('.lastSection-item').removeClass('active');
-      $currentImage.closest('.lastSection-item').addClass('active');
     }
   
-    // handle the click event for the left button
+    // Function to switch to the next slide
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % numSlides;
+      updateSlideData(currentIndex);
+    }
+  
+    // Function to start the auto rotation
+    function startAutoRotate() {
+      autoRotateTimer = setInterval(nextSlide, autoRotateInterval);
+    }
+  
+    // Function to stop the auto rotation
+    function stopAutoRotate() {
+      clearInterval(autoRotateTimer);
+    }
+  
+    // Handle the click event for the left button
     $slider.on('click', '.last-leftBtn', function() {
-      clearInterval(autoRotateTimer); // Clear auto rotation when manually switching
+      stopAutoRotate();
       currentIndex = (currentIndex - 1 + numSlides) % numSlides;
       updateSlideData(currentIndex);
     });
   
-    // handle the click event for the right button
+    // Handle the click event for the right button
     $slider.on('click', '.last-rightBtn', function() {
-      clearInterval(autoRotateTimer); // Clear auto rotation when manually switching
+      stopAutoRotate();
       currentIndex = (currentIndex + 1) % numSlides;
       updateSlideData(currentIndex);
     });
   
-    // Function to automatically rotate the images
-    function autoRotate() {
-      currentIndex = (currentIndex + 1) % numSlides;
-      updateSlideData(currentIndex);
-    }
-  
     // Start the auto rotation
-    autoRotateTimer = setInterval(autoRotate, autoRotateInterval);
-  });
-  
+    startAutoRotate();
+  });  
   
   
