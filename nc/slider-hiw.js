@@ -68,11 +68,12 @@ jQuery(document).ready(function($) {
     $heading.text($images.eq(0).data('heading'));
     $subHeading.text($images.eq(0).data('subheading'));
   
-    // update the heading and sub-heading elements when the image changes
+    // update the heading, sub-heading, and displayed image
     function updateSlideData(index) {
       var $currentImage = $images.eq(index);
       $heading.text($currentImage.data('heading'));
       $subHeading.text($currentImage.data('subheading'));
+      $currentImage.closest('.lastSection-item').addClass('active').siblings().removeClass('active');
     }
   
     // handle the click event for the left button
@@ -98,4 +99,5 @@ jQuery(document).ready(function($) {
     // Start the auto rotation
     autoRotateTimer = setInterval(autoRotate, autoRotateInterval);
   });
+  
   
